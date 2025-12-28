@@ -1,5 +1,5 @@
 import React from "react";
-import { createOrder, deleteOrder, getOrders, updateOrder } from "../api/ordersApi";
+import { createOrder, getOrders, updateOrder } from "../api/ordersApi";
 import type { Order, OrderPayload } from "../../../shared/types/orders";
 
 export const useOrders = () => {
@@ -14,7 +14,7 @@ export const useOrders = () => {
       const response = await getOrders();
       setOrders(response.orders);
     } catch {
-      setError("دریافت سفارش‌ها ناموفق بود.");
+      setError("دریافت سفارش‌ها با خطا مواجه شد.");
     } finally {
       setLoading(false);
     }
@@ -25,21 +25,15 @@ export const useOrders = () => {
   }, [load]);
 
   const addOrder = async (payload: OrderPayload) => {
-    const newOrder = await createOrder(payload);
-    setOrders((prev) => [newOrder, ...prev]);
+    const order = await createOrder(payload);
+    setOrders((prev) => [order, ...prev]);
   };
 
   const editOrder = async (id: string, payload: OrderPayload) => {
     const updated = await updateOrder(id, payload);
-    if (!updated) {
-      return;
+    if (updated) {
+      setOrders((prev) => prev.map((item) => (item.id === id ? updated : item)));
     }
-    setOrders((prev) => prev.map((order) => (order.id === id ? updated : order)));
-  };
-
-  const removeOrder = async (id: string) => {
-    await deleteOrder(id);
-    setOrders((prev) => prev.filter((order) => order.id !== id));
   };
 
   return {
@@ -49,6 +43,5 @@ export const useOrders = () => {
     reload: load,
     addOrder,
     editOrder,
-    removeOrder,
   };
 };

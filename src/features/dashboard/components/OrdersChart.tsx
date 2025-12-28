@@ -7,17 +7,17 @@ import {
   ResponsiveContainer,
   CartesianGrid,
 } from "recharts";
-import type { OrdersChartPoint } from "../../../shared/types/dashboard";
+import type { MonthlySalesPoint } from "../../../shared/types/dashboard";
 import Card from "../../../shared/components/ui/Card";
 
-const OrdersChart = ({ data }: { data: OrdersChartPoint[] }) => {
+const OrdersChart = ({ data }: { data: MonthlySalesPoint[] }) => {
   return (
-    <Card title="روند سفارش‌ها" description="نمای کلی سفارش‌های هفت روز گذشته">
+    <Card title="روند سفارش‌ها" description="نمای کلی سفارش‌های ماهانه">
       <div className="h-72">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={data} margin={{ top: 10, left: 0, right: 12, bottom: 0 }}>
             <CartesianGrid strokeDasharray="4 4" stroke="#e2e8f0" />
-            <XAxis dataKey="name" stroke="#94a3b8" tickLine={false} axisLine={false} />
+            <XAxis dataKey="month" stroke="#94a3b8" tickLine={false} axisLine={false} />
             <YAxis stroke="#94a3b8" tickLine={false} axisLine={false} />
             <Tooltip
               contentStyle={{

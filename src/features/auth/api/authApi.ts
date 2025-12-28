@@ -3,6 +3,7 @@ import { http } from "../../../api/http";
 export type LoginPayload = {
   username: string;
   password: string;
+  remember?: boolean;
 };
 
 export type LoginResponse = {
