@@ -1,10 +1,9 @@
 import React from "react";
-import { getDashboard } from "../api/dashboardApi";
-import type { DashboardStat, OrdersChartPoint } from "../../../shared/types/dashboard";
+import { getDashboardOverview } from "../api/dashboardApi";
+import type { DashboardResponse } from "../api/dashboardApi";
 
 export const useDashboard = () => {
-  const [stats, setStats] = React.useState<DashboardStat[]>([]);
-  const [chartData, setChartData] = React.useState<OrdersChartPoint[]>([]);
+  const [data, setData] = React.useState<DashboardResponse | null>(null);
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState<string | null>(null);
 
@@ -12,11 +11,10 @@ export const useDashboard = () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await getDashboard();
-      setStats(response.stats);
-      setChartData(response.chartData);
+      const response = await getDashboardOverview();
+      setData(response);
     } catch {
-      setError("دریافت داده‌های داشبورد ناموفق بود.");
+      setError("دریافت اطلاعات داشبورد با خطا مواجه شد.");
     } finally {
       setLoading(false);
     }
@@ -27,8 +25,7 @@ export const useDashboard = () => {
   }, [load]);
 
   return {
-    stats,
-    chartData,
+    data,
     loading,
     error,
     reload: load,

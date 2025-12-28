@@ -5,7 +5,7 @@ import { formatCurrency, formatDate } from "../../../shared/utils/formatters";
 const statusLabel: Record<Order["status"], string> = {
   pending: "در انتظار",
   processing: "در حال پردازش",
-  delivered: "تحویل شده",
+  completed: "تکمیل شده",
   cancelled: "لغو شده",
 };
 
