@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: "IRANSans", "Vazirmatn", system-ui, sans-serif;
+  direction: rtl;
+}
+
+body {
+  margin: 0;
+  background-color: #f8fafc;
+}
+
+* {
+  box-sizing: border-box;
+}
